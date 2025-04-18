@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real-Time Chat App</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .chat-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      width: 400px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .chat-header {
+      background: #28a745;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      gap: 8px;
+    }
+    .message {
+      padding: 10px;
+      border-radius: 10px;
+      max-width: 75%;
+    }
+    .message.user {
+      background: #d1e7dd;
+      align-self: flex-end;
+      color: #0f5132;
+    }
+    .message.other {
+      background: #f8d7da;
+      align-self: flex-start;
+      color: #842029;
+    }
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      font-size: 1em;
+    }
+    .chat-input button {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">Real-Time Chat</div>
+    <div class="chat-messages" id="chat-messages"></div>
+    <div class="chat-input">
+      <input type="text" id="messageInput" placeholder="Type a message..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const chatMessages = document.getElementById("chat-messages");
+    const messageInput = document.getElementById("messageInput");
+
+    function sendMessage() {
+      const msg = messageInput.value.trim();
+      if (!msg) return;
+
+      // Simulate current user message
+      appendMessage(msg, "user");
+
+      // Simulate a reply
+      setTimeout(() => {
+        appendMessage("Echo: " + msg, "other");
+      }, 600);
+
+      messageInput.value = "";
+    }
+
+    function appendMessage(text, type) {
+      const messageEl = document.createElement("div");
+      messageEl.classList.add("message", type);
+      messageEl.textContent = text;
+      chatMessages.appendChild(messageEl);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+  </script>
+</body>
+</html>
